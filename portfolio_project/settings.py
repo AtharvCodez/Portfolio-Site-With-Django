@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*3(*(8a(=4hll2z0jwe57krswtb)0s((=&7_p+$()p!ff%0o!=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["atharvcodez-portfolio.onrender.com"]
 
 
 # Application definition
@@ -128,3 +128,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
