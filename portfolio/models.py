@@ -1,25 +1,29 @@
 from django.db import models
 
+
 class Skill(models.Model):
     name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=100)  # FontAwesome icon class
+    color = models.CharField(max_length=50, blank=True)  # icon color
 
     def __str__(self):
         return self.name
 
 
 class Project(models.Model):
-
     title = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to='projects/')
-    tools_used = models.CharField(max_length=200)
-    link = models.URLField(blank=True)
+    tools = models.CharField(max_length=200)
+    link = models.URLField()
+    github_link = models.URLField(blank=True, null=True)
 
     def get_tools_list(self):
-        return self.tools_used.split(',')
+        return self.tools.split(',')
 
     def __str__(self):
         return self.title
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)

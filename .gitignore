@@ -12,18 +12,12 @@ ENV/
 *.log
 *.pot
 *.pyc
-db.sqlite3
 db.sqlite3-journal
-
-# Django migrations (optional)
-**/migrations/*
-!**/migrations/__init__.py
 
 # Static files collected during deployment
 staticfiles/
 
-# Media uploads (user generated)
-media/
+# Media uploads
 
 # Environment variables
 .env
@@ -40,13 +34,13 @@ build/
 dist/
 *.egg-info/
 
-# Coverage / testing
+# Coverage
 .coverage
 htmlcov/
 .pytest_cache/
 
-# Node (if ever used)
+# Node
 node_modules/
 
-# Render build artifacts
+# Render artifacts
 .render

@@ -117,15 +117,15 @@
     </section>
 
     <!-- DYNAMIC SKILLS SECTION (Fetched from Django Database) -->
-    <section id="skills" class="section skills-section">
+    <!-- <section id="skills" class="section skills-section">
         <div class="container">
             <h2 class="section-title reveal">Tech Stack</h2>
             <div class="skills-grid reveal">
 
                 {% for skill in skills %}
-                <div class="skill-card">
-                    <!-- Smart matching to restore your original SVG/FontAwesome icons based on the skill name -->
-                    {% if 'java' in skill.name|lower and 'javascript' not in skill.name|lower %}
+                <div class="skill-card"> -->
+    <!-- Smart matching to restore your original SVG/FontAwesome icons based on the skill name -->
+    <!-- {% if 'java' in skill.name|lower and 'javascript' not in skill.name|lower %}
                     <i class="fab fa-java skill-icon" style="color: #e76f00;"></i>
                     {% elif 'python' in skill.name|lower %}
                     <i class="fab fa-python skill-icon" style="color: #3776ab;"></i>
@@ -152,6 +152,36 @@
                 {% endfor %}
 
             </div>
+        </div>
+    </section> -->
+
+    <section id="skills" class="section skills-section">
+        <div class="container">
+
+            <h2 class="section-title reveal">Tech Stack</h2>
+
+            <div class="skills-grid reveal">
+
+                {% for skill in skills %}
+
+                <div class="skill-card">
+
+                    <i class="{{ skill.icon }} skill-icon" style="color: {{ skill.color }};"></i>
+
+                    <h3>{{ skill.name }}</h3>
+
+                </div>
+
+                {% empty %}
+
+                <p style="color: var(--text-muted); text-align:center; width:100%;">
+                    No skills added yet.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
         </div>
     </section>
 
@@ -206,9 +236,8 @@
                         </div>
 
                         <div class="project-links">
-                            {% if project.live_link %}
-                            <a href="{{ project.live_link }}" target="_blank" class="btn btn-primary btn-sm">Live
-                                Demo</a>
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" class="btn btn-primary btn-sm">Live Demo</a>
                             {% endif %}
                             {% if project.github_link %}
                             <a href="{{ project.github_link }}" target="_blank" class="btn btn-secondary btn-sm"><i
