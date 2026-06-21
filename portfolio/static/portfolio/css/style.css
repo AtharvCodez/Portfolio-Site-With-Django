@@ -319,7 +319,22 @@ ul {
 
 .spidey-origin-img {
     width: 160%;
-    transform: scale(1.2);
+    transform: scale(1.2) translate(var(--parallax-x, 0px), var(--parallax-y, 0px));
+    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.spidey-origin-img:hover {
+    animation: spidey-float 3s ease-in-out infinite;
+}
+
+@keyframes spidey-float {
+    0%, 100% {
+        transform: scale(1.2) translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) translateY(0px);
+    }
+    50% {
+        transform: scale(1.2) translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) translateY(-12px);
+    }
 }
 
 
@@ -468,8 +483,7 @@ ul {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: #000;
-    background-image: var(--hero-bg-image);
+    background: rgba(var(--overlay-rgb), 1);
 }
 
 /* --- ADDED WEB BG (Rings) - HIDDEN BY DEFAULT (Desktop) --- */
@@ -855,6 +869,7 @@ ul {
     height: 200px;
     overflow: hidden;
     position: relative;
+    border-bottom: 1px solid #ffffff;
 }
 
 .project-img {
@@ -912,8 +927,8 @@ ul {
 .tech-tag:hover {
     transform: translateY(2px);
     box-shadow: 2px 2px 0 var(--border-color);
-    background: var(--primary-red);
-    color: white;
+    background: #000000;
+    color: #ffffff;
 }
 
 .tech-tag:active {
@@ -933,6 +948,58 @@ ul {
     border-radius: 5px;
     text-align: center;
     flex: 1;
+}
+
+/* Custom styles for tech-tag link buttons */
+.tech-tag.btn-site {
+    background: #ffffff;
+    color: #000000;
+    border-color: var(--primary-red);
+    box-shadow: 3px 3px 0 var(--primary-red);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.tech-tag.btn-site:hover {
+    box-shadow: 2px 2px 0 var(--primary-red);
+    background: var(--primary-red);
+    color: #ffffff;
+}
+
+.tech-tag.btn-site:active {
+    box-shadow: 0 0 0 var(--primary-red);
+}
+
+.tech-tag.btn-github {
+    background: #24292e;
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 3px 3px 0 #000000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.tech-tag.btn-github:hover {
+    box-shadow: 2px 2px 0 #000000;
+    background: #000000;
+    color: #ffffff;
+}
+
+.tech-tag.btn-github:active {
+    box-shadow: 0 0 0 #000000;
 }
 
 /* --- CONTACT (HUD Style) --- */
@@ -1105,6 +1172,8 @@ ul {
 .chip:hover {
     transform: translate(2px,2px);
     box-shadow: 2px 2px 0 var(--border-color);
+    background: #000000;
+    color: #ffffff;
 }
 .chip:active {
     transform: translate(4px,4px);
@@ -1409,4 +1478,10 @@ footer {
     color: white;
     border: 2px solid white;
     transition: all 0.4s ease;
+}
+
+@media (max-width: 600px) {
+    .hero-bg {
+        display: none !important;
+    }
 }

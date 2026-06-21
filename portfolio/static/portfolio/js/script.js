@@ -52,7 +52,7 @@ class Particle {
 
 function initParticles() {
     particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+    let numberOfParticles = (canvas.height * canvas.width) / 14000;
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 2) + 1;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
@@ -134,10 +134,10 @@ function updateToggleUI(isPeter) {
     const desktopIcon = document.querySelector('#suitToggle i');
 
     if (isPeter) {
-        if (desktopText) desktopText.innerText = "ACTIVATE MILES";
+        if (desktopText) desktopText.innerText = "DARK MODE";
         if (desktopIcon) desktopIcon.className = "fas fa-moon";
     } else {
-        if (desktopText) desktopText.innerText = "ACTIVATE PETER";
+        if (desktopText) desktopText.innerText = "LIGHT MODE";
         if (desktopIcon) desktopIcon.className = "fas fa-sun";
     }
 }
@@ -213,10 +213,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const aboutSection = document.querySelector('#about');
+    if (aboutSection) {
+        aboutSection.addEventListener('mousemove', (e) => {
+            if (window.innerWidth <= 900) return; // Skip on mobile
+            
+            const spideyImg = document.querySelector('.spidey-origin-img');
+            if (spideyImg) {
+                const rect = aboutSection.getBoundingClientRect();
+                const sectionCenterX = rect.left + rect.width / 2;
+                const sectionCenterY = rect.top + rect.height / 2;
+                
+                // Invert X so moving mouse right pulls image left (on-screen)
+                let x = -(e.clientX - sectionCenterX) / 35;
+                // Clamp: Max 10px to the right, up to 50px to the left
+                if (x > 10) x = 10;
+                if (x < -50) x = -50;
+                
+                let y = (e.clientY - sectionCenterY) / 40;
+                if (y > 20) y = 20;
+                if (y < -20) y = -20;
+                
+                spideyImg.style.setProperty('--parallax-x', `${x}px`);
+                spideyImg.style.setProperty('--parallax-y', `${y}px`);
+            }
+        });
+
+        aboutSection.addEventListener('mouseleave', () => {
+            const spideyImg = document.querySelector('.spidey-origin-img');
+            if (spideyImg) {
+                spideyImg.style.setProperty('--parallax-x', '0px');
+                spideyImg.style.setProperty('--parallax-y', '0px');
+            }
+        });
+    }
 });
 
 // --- SCROLL ANIMATIONS (Standard Reveal for other sections) ---
 const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const originElements = document.querySelectorAll('.origin-text-box, .origin-image-container');
 
 const revealOnScroll = () => {
     const windowHeight = window.innerHeight;
@@ -228,8 +264,6 @@ const revealOnScroll = () => {
         }
     });
 };
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
 
 // --- NEW STICKY SCROLL LOGIC ---
 // This function calculates how far the user has scrolled WITHIN the #about section
@@ -241,7 +275,7 @@ function animateOrigin() {
 
     if (!section) return;
 
-    // UPDATED: Check for Mobile
+    // Check for Mobile
     if (window.innerWidth <= 900) {
         // If on mobile, clear inline styles so CSS transitions take over
         if (text) { text.style.transform = ''; text.style.opacity = ''; }
@@ -251,11 +285,6 @@ function animateOrigin() {
 
     // Get section position relative to viewport
     const rect = section.getBoundingClientRect();
-
-    // rect.top starts positive (below screen), becomes 0 (at top), then negative (scrolled past)
-    // We want to know how far "into" the section we are.
-    // Since the sticky container is at the top of the section, 
-    // the animation happens while rect.top is negative.
 
     const distanceScrolled = -rect.top;
     const totalDistance = section.offsetHeight - window.innerHeight;
@@ -288,9 +317,6 @@ function animateOrigin() {
     }
 }
 
-// Attach specialized scroll listener
-window.addEventListener('scroll', animateOrigin);
-
 
 // --- FORM HANDLING ---
 function initSignalAnimation() {
@@ -312,7 +338,7 @@ function selectTopic(chip, topic) {
 
     const msgArea = document.getElementById('messageArea');
     if (msgArea && (msgArea.value === "" || msgArea.value.startsWith("Subject:"))) {
-        msgArea.value = `Subject: ${topic} - \n\nHi SpidyDev, I'd like to discuss...`;
+        msgArea.value = `Subject: ${topic} - \n\nHi Atharv, I'd like to discuss...`;
     }
 }
 
@@ -439,7 +465,6 @@ function resetForm() {
 const mobileReveal = () => {
     if (window.innerWidth > 900) return; // Only run on mobile
 
-    const originElements = document.querySelectorAll('.origin-text-box, .origin-image-container');
     const windowHeight = window.innerHeight;
     const elementVisible = 150;
 
@@ -452,5 +477,21 @@ const mobileReveal = () => {
         }
     });
 }
-window.addEventListener('scroll', mobileReveal);
-mobileReveal(); // Initial check
+
+// Optimized Unified Scroll listener (Passive & RequestAnimationFrame)
+let isScrolling = false;
+window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+            revealOnScroll();
+            animateOrigin();
+            mobileReveal();
+            isScrolling = false;
+        });
+        isScrolling = true;
+    }
+}, { passive: true });
+
+// Initial checks
+revealOnScroll();
+mobileReveal();

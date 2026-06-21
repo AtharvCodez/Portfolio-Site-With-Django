@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpidyDev - Frontend Developer</title>
+    <title>AtharvCodez - Frontend Developer</title>
 
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,18 +37,18 @@
     <nav class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">
-                <i class="fas fa-spider" style="color: var(--primary-red);"></i> SPIDY<span>DEV</span>
+                </i>Atharv<span>Codez</span>
             </a>
 
             <ul class="nav-links">
                 <li><a href="#about" class="nav-item"><i class="fas fa-user-secret"></i> About</a></li>
                 <li><a href="#skills" class="nav-item"><i class="fas fa-bolt"></i> Skills</a></li>
-                <li><a href="#projects" class="nav-item"><i class="fas fa-microchip"></i> Tech</a></li>
+                <li><a href="#projects" class="nav-item"><i class="fas fa-microchip"></i> Projects</a></li>
                 <li><a href="#contact" class="nav-item"><i class="fas fa-paper-plane"></i> Contact</a></li>
             </ul>
 
             <button class="theme-switch" id="suitToggle" onclick="handleThemeToggle(event)">
-                <i class="fas fa-moon"></i> <span>CHANGE SUIT</span>
+                <i class="fas fa-moon"></i> <span>CHANGE THEME</span>
             </button>
         </div>
     </nav>
@@ -70,8 +70,8 @@
             </h1>
 
             <p class="subtitle">
-                I build responsive web apps using JavaScript & React,
-                focused on performance and clean UI logic.
+                Learning by building, improving through iteration.<br>
+                Creating responsive web experiences through real-world projects.
             </p>
 
             <div class="hero-buttons">
@@ -124,6 +124,9 @@
 
                 {% for skill in skills %}
                 <div class="skill-card">
+                    {% if skill.icon %}
+                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }} Icon" class="skill-icon-img" style="width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px;">
+                    {% else %}
                     <!-- Smart matching to restore your original SVG/FontAwesome icons based on the skill name -->
                     {% if 'java' in skill.name|lower and 'javascript' not in skill.name|lower %}
                     <i class="fab fa-java skill-icon" style="color: #e76f00;"></i>
@@ -143,6 +146,7 @@
                     <i class="fab fa-github skill-icon" style="color: var(--text-main);"></i>
                     {% else %}
                     <i class="fas fa-code skill-icon" style="color: var(--primary-red);"></i>
+                    {% endif %}
                     {% endif %}
 
                     <h3>{{ skill.name }}</h3>
@@ -176,43 +180,20 @@
                         </p>
 
                         <div class="project-tech">
-                            <!-- Smart matching to restore your original project tech stack tags based on title -->
-                            {% if 'netflix' in project.title|lower %}
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            {% elif 'nexbuy' in project.title|lower %}
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            {% elif 'atherius' in project.title|lower %}
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            {% elif 'lifecord' in project.title|lower %}
-                            <span class="tech-tag">HTML/CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">postgresql</span>
-                            {% elif 'friday' in project.title|lower %}
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SpeechRecognition</span>
-                            <span class="tech-tag">PyTTSx3</span>
-                            {% elif project.tech_stack %}
-                            <!-- Fallback if you ever add a tech_stack field to your database -->
-                            <span class="tech-tag">{{ project.tech_stack }}</span>
-                            {% else %}
-                            <span class="tech-tag">Web Tech</span>
+                            {% for tool in project.get_tools_list %}
+                            {% if tool %}
+                            <span class="tech-tag">{{ tool }}</span>
                             {% endif %}
+                            {% endfor %}
                         </div>
 
                         <div class="project-links">
-                            {% if project.live_link %}
-                            <a href="{{ project.live_link }}" target="_blank" class="btn btn-primary btn-sm">Live
-                                Demo</a>
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" class="tech-tag btn-site">View Site</a>
                             {% endif %}
                             {% if project.github_link %}
-                            <a href="{{ project.github_link }}" target="_blank" class="btn btn-secondary btn-sm"><i
-                                    class="fab fa-github"></i> Code</a>
+                            <a href="{{ project.github_link }}" target="_blank" class="tech-tag btn-github"><i
+                                    class="fab fa-github"></i> Github Source</a>
                             {% endif %}
                         </div>
                     </div>
@@ -245,16 +226,17 @@
                         </div>
                     </div>
 
-                    <h3 style="margin-bottom: 20px;">Spidey Comms</h3>
+                    <h3 style="margin-bottom: 20px;">GET IN TOUCH</h3>
                     <p style="margin-bottom: 30px; color: var(--text-muted); font-size: 0.95rem;">
-                        Scanning for new missions. Select a frequency or drop a direct line.
+                        Open to internships, freelance opportunities, and exciting collaborations. Feel free to reach
+                        out anytime.
                     </p>
 
                     <!-- Copyable Contact Items -->
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt" style="color: var(--primary-red); font-size: 1.2rem;"></i>
                         <div class="contact-text-group">
-                            <span class="contact-label">Base of Operations</span>
+                            <span class="contact-label">Location</span>
                             <span class="contact-value">Bhubaneswar, Odisha</span>
                         </div>
                     </div>
@@ -262,7 +244,7 @@
                     <div class="contact-item">
                         <i class="fas fa-envelope" style="color: var(--primary-red); font-size: 1.2rem;"></i>
                         <div class="contact-text-group" style="flex: 1;">
-                            <span class="contact-label">Secure Line (Email)</span>
+                            <span class="contact-label">Email</span>
                             <span class="contact-value" id="emailText">atharvpatole04@gmail.com</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('emailText')" title="Copy Email">
@@ -315,24 +297,22 @@
                         <input type="hidden" id="topicInput" name="topic" value="General">
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Your Name / Alias"
-                                required>
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="Your Email Frequency"
-                                required>
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                         </div>
 
                         <div class="form-group">
                             <textarea id="messageArea" name="message" class="form-control" rows="5"
-                                placeholder="Mission Brief..." required></textarea>
+                                placeholder="Your Message..." required></textarea>
                         </div>
 
                         <div class="form-buttons">
 
                             <button id="sendBtn" type="submit" class="btn btn-primary send-btn">
-                                <i class="fas fa-paper-plane"></i> Shoot Web (Send)
+                                <i class="fas fa-paper-plane"></i> Send Message
                             </button>
 
                             <div id="afterSendBtns" class="after-send">
@@ -356,10 +336,10 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <h3>Spidy <span style="color: var(--primary-red);">Dev</span></h3>
+            <h3>Atharv <span style="color: var(--primary-red);">Codez</span></h3>
             <p style="color: var(--text-muted); font-size: 0.9rem;">
-                Built with Web Technologies.
-                <br>&copy; 2026. Not affiliated with Marvel.
+                Designed & Developed by Atharv Sunil Patole.
+                <br> Built with Django and Modern Web Technologies.
             </p>
         </div>
     </footer>
