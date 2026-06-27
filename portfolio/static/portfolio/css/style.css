@@ -20,8 +20,8 @@
     --glitch-color-2: #ff00ff;
     /* Default Hero Image (Dark Mode) */
     --hero-bg-image: url("../images/hero.png");
-    /* Overlay Gradient Color (RGB) - Black for Dark Mode */
-    --overlay-rgb: 0, 0, 0;
+    /* Overlay Gradient Color (RGB) - Matches #0F1115 for Dark Mode */
+    --overlay-rgb: 15, 17, 21;
     /* Red Glow Effect - REMOVED for clear image */
     --hero-glow: none;
     /* Typewriter Text Color - White for Dark Mode */
@@ -49,8 +49,8 @@ body.peter-parker-theme {
     --glitch-color-2: #0000ff;
     /* Light Theme Hero Image */
     --hero-bg-image: url("../images/white theme.jpeg");
-    /* Overlay Gradient Color (RGB) - White for Light Mode */
-    --overlay-rgb: 255, 255, 255;
+    /* Overlay Gradient Color (RGB) - Matches #f0f4f8 for Light Mode */
+    --overlay-rgb: 240, 244, 248;
     /* Red Glow Effect - REMOVED for clear image */
     --hero-glow: none;
     /* Typewriter Text Color - Red for Light Mode */
@@ -514,6 +514,10 @@ ul {
     z-index: 1;
     /* Above Rings */
     transition: background-image 0.5s ease;
+    
+    /* Fade only the left vertical border of the image smoothly */
+    -webkit-mask-image: linear-gradient(to right, transparent 40%, black 60%);
+    mask-image: linear-gradient(to right, transparent 40%, black 60%);
 }
 
 /* dark readable side */
@@ -968,8 +972,8 @@ ul {
 
 .tech-tag.btn-site:hover {
     box-shadow: 2px 2px 0 var(--primary-red);
-    background: var(--primary-red);
-    color: #ffffff;
+    background: #e6e6e6;
+    color: #000000;
 }
 
 .tech-tag.btn-site:active {
@@ -1399,13 +1403,15 @@ footer {
     .nav-links a {
         font-size: 0.75rem;
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 4px;
     }
 
     .nav-links i {
-        font-size: 1rem;
-        margin-bottom: 2px;
+        font-size: 1.1rem;
+        margin-bottom: 0;
     }
 
     .theme-switch {

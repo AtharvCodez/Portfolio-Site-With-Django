@@ -13,7 +13,7 @@
         rel="stylesheet">
 
     <!-- External CSS (Matches your working reference) -->
-    <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}?v=1.2">
 
     <!-- Dynamic Hero Images for Django Static Files -->
     <style>
@@ -101,8 +101,8 @@
                             code with every iteration.
                         </p>
                         <p style="font-size: 1.1rem;">
-                            I work with HTML, CSS, JavaScript, Java, and Python, focusing on understanding how things
-                            work and building solutions that are clean, practical, and reliable.
+                            I focus on building responsive web applications with clean, maintainable code, using every
+                            project as an opportunity to learn, improve, and create practical solutions.
                         </p>
                     </div>
 
@@ -125,7 +125,8 @@
                 {% for skill in skills %}
                 <div class="skill-card">
                     {% if skill.icon %}
-                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }} Icon" class="skill-icon-img" style="width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px;">
+                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }} Icon" class="skill-icon-img"
+                        style="width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px;">
                     {% else %}
                     <!-- Smart matching to restore your original SVG/FontAwesome icons based on the skill name -->
                     {% if 'java' in skill.name|lower and 'javascript' not in skill.name|lower %}
